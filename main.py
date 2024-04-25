@@ -8,8 +8,8 @@ BASE_URL = "https://staff-lookup.api.nottingham.ac.uk/person-search/v1.0/uk/{}/s
 results = []
 
 
-def get_page(department_name: str, page_name: int):
-    url = BASE_URL.format(department_name, page_name)
+def get_page(department_name: str, page_num: int):
+    url = BASE_URL.format(department_name, page_num)
     request = requests.get(url)
     return request.json()
 
