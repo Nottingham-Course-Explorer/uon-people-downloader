@@ -7,18 +7,21 @@ BASE_URL = "https://staff-lookup.api.nottingham.ac.uk/person-search/v1.0/uk/{}/s
 
 results = []
 
-for department in tqdm(DEPARTMENTS):
-    url = BASE_URL.format(department, 1)
+
+def get_page(department_name: str, page_name: int):
+    url = BASE_URL.format(department_name, page_name)
     request = requests.get(url)
-    data = request.json()
+    return request.json()
+
+
+for department in tqdm(DEPARTMENTS):
+    data = get_page(department, 1)
     results += data["results"]
     pages: int = data["meta"]["totalpages"]
 
     if pages > 1:
         for page in range(2, pages + 1):
-            url = BASE_URL.format(department, page)
-            request = requests.get(url)
-            data = request.json()
+            data = get_page(department, page)
             results += data["results"]
 
 
