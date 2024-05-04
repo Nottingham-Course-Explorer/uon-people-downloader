@@ -24,6 +24,11 @@ def store_result(result, db_cursor):
         result["_jobTitle"],
         result["_email"]
     ))
+    
+
+def store_results(results, db_cursor):
+    for result in results:
+        store_result(result, db_cursor)
 
 
 print("Getting departments...")
@@ -36,12 +41,15 @@ cursor = db.cursor()
 
 for department in tqdm(departments):
     data = get_staff_results_page(department, 1)
-    store_result(data["results"], cursor)
+    store_results(data["results"], cursor)
     pages: int = data["meta"]["totalpages"]
     
     if pages > 1:
         for page in range(2, pages + 1):
             data = get_staff_results_page(department, page)
-            store_result(data["results"], cursor)
+            store_results(data["results"], cursor)
+
+db.commit()
+db.close()
 
 print("Done.")

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/uon-people-scraper.iml" filepath="$PROJECT_DIR$/.idea/uon-people-scraper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/uon-people-downloader.iml" filepath="$PROJECT_DIR$/.idea/uon-people-downloader.iml" />
     </modules>
   </component>
 </project>
