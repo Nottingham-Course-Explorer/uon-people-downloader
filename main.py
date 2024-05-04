@@ -40,14 +40,14 @@ db = sqlite3.connect(DATABASE)
 cursor = db.cursor()
 
 for department in tqdm(departments):
-    data = get_staff_results_page(department, 1)
-    store_results(data["results"], cursor)
-    pages: int = data["meta"]["totalpages"]
+    first_page = get_staff_results_page(department, 1)
+    store_results(first_page["results"], cursor)
+    pages: int = first_page["meta"]["totalpages"]
     
     if pages > 1:
-        for page in range(2, pages + 1):
-            data = get_staff_results_page(department, page)
-            store_results(data["results"], cursor)
+        for i in range(2, pages + 1):
+            page = get_staff_results_page(department, i)
+            store_results(page["results"], cursor)
 
 db.commit()
 db.close()
