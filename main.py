@@ -1,7 +1,7 @@
-import json
 import sqlite3
 import requests
 from tqdm import tqdm
+import time
 
 STAFF_LOOKUP_BASE_URL = "https://staff-lookup.api.nottingham.ac.uk/person-search/v1.0/uk/{}/staff/page{}"
 UNITS_LOOKUP_URL = "https://staff-lookup.api.nottingham.ac.uk/person-search/v1/orgunits/uk/staff"
@@ -15,16 +15,17 @@ def get_staff_results_page(department_name: str, page_num: int):
 
 
 def store_result(result, db_cursor):
-    db_cursor.execute("INSERT OR IGNORE INTO staff VALUES (?, ?, ?, ?, ?, ?, ?)", (
+    db_cursor.execute("INSERT OR IGNORE INTO staff VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (
         result["_username"],
         result["_salutation"],
         result["_givenName"].title(),
         result["_surname"].title(),
         result["_department"],
         result["_jobTitle"],
-        result["_email"]
+        result["_email"],
+        int(time.time())
     ))
-    
+
 
 def store_results(results, db_cursor):
     for result in results:
