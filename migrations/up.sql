@@ -1,4 +1,4 @@
-CREATE TABLE staff
+create table if not exists staff
 (
     username   text PRIMARY KEY NOT NULL,
     salutation text             NOT NULL,
